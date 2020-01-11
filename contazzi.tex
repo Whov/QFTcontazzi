@@ -70,10 +70,9 @@
 	
 	\section{Spinori}
 	\subsection{Rappresentazioni}
-	NB: Ho il terrore che Guadagnini scambi i nomi spinore destro e sinistro per le due rappresentazioni, rispetto a come sto facendo qui. La matematica però è giusta.
 	\[ J_\pm = \dfrac{1}{2} (J\pm i K) \]
-	Chiamo $\left(0, \dfrac{1}{2}\right)$ spinori destri $\psi_R$, che hanno solo $J_+$. $J=\dfrac{\sigma}{2}$, $K = -i\dfrac{\sigma}{2}$\\
-	Chiamo $\left(\dfrac{1}{2}, 0\right)$ spinori sinistri $\psi_L$, che hanno solo $J_-$. $J=\dfrac{\sigma}{2}$, $K = i\dfrac{\sigma}{2}$
+	Chiamo $\left(0, \dfrac{1}{2}\right)$ spinori sinistri $\psi_R$, che hanno solo $J_+$. $J=\dfrac{\sigma}{2}$, $K = -i\dfrac{\sigma}{2}$\\
+	Chiamo $\left(\dfrac{1}{2}, 0\right)$ spinori destri $\psi_L$, che hanno solo $J_-$. $J=\dfrac{\sigma}{2}$, $K = i\dfrac{\sigma}{2}$
 	
 	Noto ciò è immediato che
 	\[ \Psi_R \rightarrow exp\left(i \dfrac{\theta\cdot\sigma}{2} + \dfrac{\beta\cdot\sigma}{2}\right) \]
@@ -123,7 +122,29 @@
 	\subsection{Parità}
 	TODO!
 	
-	\subsection{Fare i conti}
+	\subsection{Coniugazione di carica}
+	Per i campi spinoriali $\psi\rightarrow -i \gamma^2 \psi^*$. Si dimostra che $\bar{\psi} \psi$ e $\bar{\psi} \slashed{\partial} \psi$ sono invarianti. Poichè $A_\mu\rightarrow -A_\mu$ però, il nuovo campo $\psi$ soddisfa l'equazione di Dirac con $e\rightarrow-e$, cioè è un campo con carica opposta (da cui il nome coniugazione di carica per questa simmetria).
+	
+	\section{Fare i conti}
+	\paragraph{Prodotto di \epsilon}
+	\[ \epsilon^{\mu\nu\rho\sigma} \epsilon_{\alpha\beta\gamma\delta} = -(\delta^\mu_\alpha\delta^\nu_\beta\delta^\rho_\gamma\delta^\sigma_\delta \pm ..) \]
+	dove gli altri termini (24 in tutto) sono sempre 4 delte con indici in alto uguali e indici in basso permutati in tutti i modi possibili. Il segno di ciascun termine è dato dalla parità della permutazione degli indici in basso. Il meno davanti a tutto è dovuto al fatto che $\epsilon_{0123}=+1$ ma $\epsilon^{0123}=-1$. Contraendo si ha
+	\[ \epsilon^{\mu\nu\rho\sigma}\epsilon_{\alpha\beta\gamma\sigma} =-( \delta^\mu_\alpha\delta^\nu_\beta\delta^\rho_\gamma \pm ..) \]
+	\[ \epsilon^{\mu\nu\rho\sigma}\epsilon_{\alpha\beta\rho\sigma} = -(2\delta^\mu_\alpha\delta^\nu_\beta - 2\delta^\mu_\beta\delta^\nu_\alpha) \]
+	\[ \epsilon^{\mu\nu\rho\sigma}\epsilon_{\alpha\nu\rho\sigma} = -6\delta^\mu_\alpha \]
+	\[ \epsilon^{\mu\nu\rho\sigma}\epsilon_{\mu\nu\rho\sigma} = -24 \]
+	
+	\paragraph{Autostati di \sigma}
+	\[ (\hat{n}\cdot\sigma) v_\pm = \pm v_\pm \]
+	dove $\hat{n}$ fa angoli $\theta$ e $\phi$ con gli assi. Allora
+	\[ v_+ = \begin{pmatrix}
+	\cos(\frac{\theta}{2}) \\ e^{i\phi} \sin(\frac{\theta}{2})
+	\end{pmatrix} \]
+	
+	\[ v_- = \begin{pmatrix}
+	-\sin(\frac{\theta}{2}) \\ e^{i\phi} \cos(\frac{\theta}{2})
+	\end{pmatrix} \]	
+	
 	\subsection{Campo scalare e vettoriale}
 	Il campo scalare reale è
 	\[ \phi(x) = \int \dfrac{\d^3 p}{(2\pi)^3\sqrt{2\omega_p}} (a_p^s e^{-ipx} + a_p^\dagger e^{ipx}) \]
@@ -138,14 +159,16 @@
 	\[ \bar{\psi}(x) = \sum_s \int \dfrac{\d^3 p}{(2\pi)^3\sqrt{2\omega_p}} (b_p^{s\dagger} \bar{u}_p^s e^{ipx} + d_p^s \bar{v}_p^s e^{-ipx}) \]
 	$\psi$ quindi annichila un $e^{-}$ e crea un $e^{+}$, $\bar{\psi}$ annichila un $e^{+}$ e crea un $e^{-}$.
 	
-	\paragraph{Corrente conservata} $J^\mu = \bar{\psi} \gamma^\mu \psi$ è conservata (anche nel caso di interazione elettromagnetica). Mediante le relazioni di ortogonalità si dimostra che $Q$ è la differenza fra numero di elettroni e di positroni.
+	\paragraph{Corrente conservata} $J^\mu = \bar{\psi} \gamma^\mu \psi$ è conservata (anche nel caso di interazione elettromagnetica). Mediante le relazioni di ortogonalità si dimostra che $Q$ è la differenza fra numero di elettroni e di positroni. Viene dalla simmetria $\psi \rightarrow e^{-i\alpha} \psi$, $\bar{\psi} = e^{i\alpha} \bar{\psi}$.
+	
+	Nel caso di langrangiana di Dirac massless esiste anche la simmetria $\psi\rightarrow e^{i\alpha \gamma^5} \psi$, $\bar{\psi}\rightarrow e^{i\alpha \gamma^5} \bar{\psi}$ che genera la corrente $j_{ax} = \bar{\psi}\gamma^\mu\gamma^5\psi$, con $\partial_\mu j_{ax}^\mu = 2im\bar{\psi}\gamma^5\psi = 0$.
 	
 	\paragraph{Base chirale}
 	
 	$\gamma^0 = \begin{pmatrix}
 	0&1\\1&0
 	\end{pmatrix}$, $\gamma^j = \begin{pmatrix}
-	&-\sigma^j\\\sigma^j&
+	&\sigma^j\\-\sigma^j&
 	\end{pmatrix}$, $\gamma^5 = \begin{pmatrix}
 	1&0\\0&-1
 	\end{pmatrix}$
@@ -160,7 +183,7 @@
 	v_s(p) = \begin{pmatrix}
 	\sqrt{p\cdot \sigma}\eta_s\\ -\sqrt{p\cdot \bar{\sigma}} \eta_s
 	\end{pmatrix} \]
-	$\xi_s,\,\eta_s$ sono vettori a due componenti, ad esempio $\xi_1 = \left( ^{1}_{0} \right)$, $\xi_2 = \left( ^{0}_{1} \right)$.
+	$\xi_s,\,\eta_s$ sono vettori a due componenti, ad esempio $\xi = \left( ^{1}_{0} \right)$ (spin up), $\xi = \left( ^{0}_{1} \right)$ (spin down). Per $\eta$ spin up e down sono scambiati, $\eta = \left( ^{1}_{0} \right)$ (spin down), $\eta = \left( ^{0}_{1} \right)$ (spin up).
 	
 	Nella base standard di Guadagnini ($\gamma^0 = \begin{pmatrix}
 	1&0\\0&-1
@@ -173,10 +196,17 @@
 	\dfrac{\vec{p}\cdot\vec{\sigma}}{\sqrt{E+m}} \xi_r \\ \sqrt{E+m} \xi_r
 	\end{pmatrix} \]
 	
-	Per impulsi non nulli è definita l'elicità. Nella base chirale lo spinore di Dirac è decomposto in due parti con elicità definita (le convenzioni sui nomi mi sembrano anarchia pura), nella base standard invece basta scegliere $\Phi$ e $\xi$ che soddisfino alle seguenti equazioni:
-	\[ \dfrac{\vec{p}\cdot\sigma}{p} \Phi^1 = \Phi^1,\qquad \dfrac{\vec{p}\cdot\sigma}{p} \Phi^2 = -\Phi^2 \]
-	\[ \dfrac{\vec{p}\cdot\sigma}{p} \xi^1 = \xi^1,\qquad \dfrac{\vec{p}\cdot\sigma}{p} \xi^2 = -\xi^2 \]
-	allora gli spinori $u^1$, $u^2$ sono particelle di elicità $+1/2$, $-1/2$; $\bar{v}^1$, $\bar{v}^2$ sono antiparticelle di elicità $-1/2$, $+1/2$.
+	$\phi_1 = (1,0)$ è spin up lungo $\hat{z}$, $\phi_2 = (0,1)$ è spin down lungo $\hat{z}$. Per le antiparticelle è il contrario, $\xi_2 = (1,0)$ è spin down lungo $\hat{z}$, $\xi_1 = (0,1)$ è spin up lungo $\hat{z}$.
+	
+	\paragraph{*Motivo dell'inversione dello spin} Passando da particelle ad antiparticelle lo spin è l'opposto di quanto ti aspetti. Questo perchè $i\partial_t e^{ipx}$ dà energia formalmente negativa, dunque si stipula che per antiparticelle l'energia vada interpretata cambiata di segno. Per lorentz anche l'impulso va cambiato di segno (difatti $(\slashed{p}+m)v=0$ mentre $(\slashed{p}-m)u=0$), $\vec{L} = \vec{r}\wedge \vec{p}$, dunque anche $\vec{L}$ cambia segno e infine $\vec{J} = \vec{L} + \vec{S}$ si conserva, dunque anche $\vec{S}$ cambia segno.
+	
+	\paragraph{Elicità}
+	L'operatore elicità è definito come $h = \dfrac{i}{2} \epsilon_{ijk}\hat{p}^iS^{jk}$ ($\hat{p}=\dfrac{p}{|p|}$, $S^{jk}$ è la matrice che genera le rotazioni e si ottiene dal commutatore delle matrici $\gamma$). Poichè in $S$ compaiono solo indici spaziali e poichè le matrici $\gamma^i$ sono uguali nella base chirale e in quella standard, si ha che in entrambe le basi $h$ è
+	\[ h = \dfrac{1}{2} \hat{p}^i \begin{pmatrix}
+	\sigma^i &\\ & \sigma^i
+	\end{pmatrix} \]
+	
+	Si può verificare facilmente (in entrambe le basi) che, per particelle con impulso lungo $+\hat{z}$, $u_{up}$ ha elicità $+1/2$ e $u_{down}$ ha elicità $-1/2$. Viceversa $v_{up}$ ha elicità $-1/2$ e $v_{down}$ ha elicità $+1/2$.
 	
 	\subsection{Limite nonrelativistico}
 	Nel limite nonrelativistico in $u,v$ domina la massa $m$ su $p$ e $E\simeq m$. Consideriamo solo gli elettroni (solo $u$). Separiamo $\psi$ (base standard!) in $\psi = \begin{pmatrix}	\phi\\ \chi \end{pmatrix}$. Per ispezione da $u$ oppure con l'equazione di Dirac in trasformata si ricava che 
@@ -188,15 +218,34 @@
 	che si scrive anche come
 	\[ \dfrac{\pi^2}{2m} +(e V) - \vec{\mu}\cdot \vec{B} \]
 	con $\vec{\mu} = 2 \mu_B \vec{s}$.
-	
-	\paragraph{Relazioni di ortogonalità e completezza}
+
+	\subsection{Relazioni di ortogonalità e completezza}
+	\paragraph{Spinori}
 	\[ \bar{u}_p^r u_p^s = 2m \delta_{rs} = - \bar{v}_p^r v_p^s \]
 	\[ u_p^{\dagger r} u_p^s = 2E_p \delta_{rs} = v_p^{\dagger r} v_p^s \]
 	\[ \bar{v}_p^r u_p^s = \bar{u}_p^r v_p^s = 0 \]
 	\[ v_p^{\dagger r} u_{-p}^s = u_p^{\dagger s} v_{-p}^r = 0 \]
 	
+	\[ \sum_{r=1}^{2} u^r_p\bar{u}^r_p = \slashed{p} + m \]
+	\[ \sum_{r=1}^{2} v^r_p\bar{v}^r_p = \slashed{p} - m \]
+	
+	\paragraph{Fotoni}
+	$P_{\mu\nu}(p)$ è definito come il proiettore sul piano puramente spaziale ortogonale a $\vec{p}$.
+	\[ \sum_{r,s}\epsilon^r_\mu(p)\epsilon^{*s}_\nu(p) = P_{\mu\nu}(p) \]
+	Nota che per via dell'identità di Ward è possibile rimpiazzare $P_{\mu\nu}(p)$ con $-\eta_{\mu\nu}$.
+	
+	Gli spin possibili per un fotone sono solo $\pm 1$. Supposto $\vec{p}$ diretto lungo $+\hat{z}$, lo spin lungo $\hat{z}$ si scrive in termini di $\epsilon_\mu(p)$ rispettivamente come $(0, 1, \pm i, 0)/\sqrt{2}$. Negli altri casi fare a mano: ad esempio (sempre moto lungo $+\hat{z}$) spin $+1$ lungo $\hat{x}$ è la somma di spin $+1$ e $-1$ lungo $\hat{z}$ (si pensi agli autovettori delle matrici $\sigma$), dunque il vettore polarizzazione è $(0, 1, 0, 0)$.
+	
+	\paragraph{Vettori massivi}
+	Discuto solo il caso in cui la particella è ferma. $\tilde{P}$ è l'identità sullo spazio, cioè proietta via la polarizzazione tempo.
+	\[ \sum_{r,s}\epsilon^r_\mu(p)\epsilon^{*s}_\nu(p) = \tilde{P} \]
+	Il legame fra spin (lungo $\hat{z}$) $+1,0,-1$ e vettori polarizzazione è come prima solo che a $\epsilon_\pm$ si aggiunge $\epsilon_0 = (0,0,0,1)$.
+	
+	\subsection{Propagatori}
+	
 	\paragraph{Propagatore scalare} $\dfrac{i}{p^2-m^2+i\epsilon}$.
 	\paragraph{Propagatore dei fotoni} $\dfrac{-i\eta_{\mu\nu}}{p^2+i\epsilon}$.
+	\paragraph{Propagatore dei vettori massivi} $i\dfrac{\dfrac{p_\mu p_\nu}{m^2} - \eta_{\mu\nu}}{p^2-m^2+i\epsilon}$.
 	\paragraph{Propagatore dei fermioni} $\dfrac{i(\slashed{p} + m)}{p^2-m^2 + i\epsilon}$. L'impulso per linee interne è diretto come il fermione (gli elettroni vanno nel futuro).
 	
 	Le linne esterne fermioniche vogliono un fattore $u$ o $\bar{v}$ se sono pozzi (di elettroni o positroni risp.), $\bar{u}$ o $v$ per le sorgenti. Per spinori esterni valgono le equazioni del moto secondo cui
@@ -207,15 +256,17 @@
 	\paragraph{Introduzione}
 	\[ (\bar{v}^s_p \Gamma u^r_k)^* = \bar{u}^r_k \bar{\Gamma} v^s_p \]
 	\[ \slashed{p}\slashed{q} = p\cdot q - i S^{\mu\nu} p_\mu q_\nu \]
-	\[ gamma_\mu \gamma^\mu = 4 \]
+	\[ \gamma_\mu \gamma^\mu = 4 \]
 	\[ \gamma_\mu \slashed{p}\gamma^\mu = -2 \slashed{p} \]
-	\[ \gamma_\mu\slashed{p}\slashed{q}\slashed{k}\gamma^\mu = -2 \slashed{k}\slashed{q}\slashed{p} \]
 	\[ \gamma_\mu \slashed{p}\slashed{q}\gamma^\mu = 4 p\cdot q \]
+	\[ \gamma_\mu\slashed{p}\slashed{q}\slashed{k}\gamma^\mu = -2 \slashed{k}\slashed{q}\slashed{p} \]
 	
 	\paragraph{Tracciologia}
 	La traccia di un numero dispari di matrici gamma (esclusa $\gamma^5$ che conta come 4 matrici gamma) è zero (ciclicità della traccia).
 	\[ Tr[\gamma^\mu\gamma^\nu] = 4\eta^{\mu\nu} \]
 	\[ Tr[\gamma^\mu\gamma^\nu\gamma^\rho\gamma^\sigma] = 4\eta^{\mu\nu}\eta^{\rho\sigma} -4\eta^{\mu\rho}\eta^{\nu\sigma} + 4\eta^{\mu\sigma}\eta^{\nu\rho} \]
+	\[ Tr[\gamma^{\nu_1}\gamma^{\nu_2}..\gamma^{\nu_n}] = \sum_{k=2}^{n} (-1)^k \eta^{\nu_1\nu_k} Tr[\gamma^{\nu_2}..\hat{\gamma}^{\nu_k}..\gamma^{\nu_n}] \]
+	dove $\hat{\gamma}^{\nu_k}$ significa che la matrice $\gamma^{\nu_k}$ va omessa.
 	\[ Tr[\gamma^5\gamma^\mu\gamma^\nu] = 0 \]
 	\[ Tr[\gamma^5\gamma^\mu\gamma^\nu\gamma^\rho\gamma^\sigma] = 4i\epsilon^{\mu\nu\rho\sigma} \]
 	attenzione: $\epsilon^{0123} = -\epsilon_{0123} = -1$.
@@ -234,8 +285,10 @@
 	\[ "\sum_{r,s}|\bar{v}^s_p \gamma^\mu u^r_k|^2" = \sum_{r,s}(\bar{v}^s_p \gamma^\mu u^r_k)(\bar{u}^r_k \gamma^\nu v^s_p) = Tr[(\slashed{p}-m) \gamma^\mu (\slashed{k}+m) \gamma^\nu] \]
 	
 	
-	\section{Cose in più}
+	\section{*D.o.f. degli spinori}
 	Abbiamo detto che $(\slashed{p} -m)u=0$ è l'equazione del moto (per $v$ si ha $(\slashed{p}+m)v=0$). Dobbiamo trovare il kernel di $(\slashed{p}\pm m)$. Facendo agire tali operatori su $\begin{pmatrix}	\phi\\\psi	\end{pmatrix}$ si osserva che fissato $\psi$ esiste $\phi$ e viceversa in modo che operando venga 0. Viceversa se fisso $\psi=0$ ho che operando viene 0 sse $\phi=0$. Notiamo inoltre che $(\slashed{p}+m)(\slashed{p}-m) = 0$. Dunque scrivendo $u_s(p) = \dfrac{\slashed{p}+m}{\sqrt{E+m}} \begin{pmatrix}	\phi_s\\0	\end{pmatrix} $ stiamo generando due vettori indipendenti annichilati da $(\slashed{p}-m)$, cioè tutte e sole le soluzioni.
+	
+	In conclusione ci sono 4 gradi di libertà fisici in uno spinore di Dirac, 2 con chiralità left e 2 right, ciascuno con 2 gradi di libertà di spin.
 	
 	\section{Mondo reale}
 	Per Guadagnini
