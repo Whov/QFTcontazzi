@@ -1,0 +1,272 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage{lmodern}
+\usepackage{beppe_package_eng}
+\usepackage{amsmath}
+\usepackage{slashed}
+
+\author{Bruno Bucciotti\thanks{bruno.bucciotti@sns.it}}
+\title{QFT conti}
+\date{7 febbraio 2020}
+
+\renewcommand{\k}{k_B}
+
+\begin{document}
+	\maketitle
+	\begin{abstract}
+	Contazzi di QFT. Pochi concetti, molti conti, setup di tutto da zero. Dove ovvio, uguale vuol dire uguale al primo ordine. Si seguono le convenzioni dello Schwartz aggiustando tutti gli indici.
+	\href{https://www.youtube.com/watch?v=jZ7oghC1Mro}{Si migliora ogni giorno}
+	\end{abstract}
+
+	\section{Lorentz}
+	\subsection{Introduzione}
+	Le matrici $\Lambda$ sono il male, usare $v^{'\mu} = \dfrac{\partial x^{'\mu}}{\partial x^\nu} v^\nu$, $v_\mu^{'} = \dfrac{\partial x^{\mu}}{\partial x^{'\nu}} v_\nu$.
+	
+	Esempio: da
+	\[ (\Lambda^{-1} \omega \Lambda)_{\mu\nu} M^{\mu\nu} = \omega_{\alpha\beta} U_{\Lambda^{-1}} M^{\alpha\beta} U_\Lambda\quad\forall \omega_{\alpha\beta} \]
+	dimostrare che $U_{\Lambda^{-1}} M^{\alpha\beta} U_\Lambda = \Lambda^\alpha_\mu \Lambda^\beta_\nu M^{\mu\nu}$. \emph{Dimostrazione}:
+	\[ \eta_{\mu\tau} \dfrac{\partial x^\tau}{\partial x^{'\sigma}} \eta^{\sigma\alpha} \omega_{\alpha\beta} \dfrac{\partial x^{' \beta}}{\partial x^\nu} M^{\mu\nu} = \dfrac{\partial x^{'\alpha}}{\partial x^{\mu}} \omega_{\alpha\beta} \dfrac{\partial x^{' \beta}}{\partial x^\nu} M^{\mu\nu} = \omega_{\alpha\beta} U_{\Lambda^{-1}} M^{\alpha\beta} U_\Lambda\quad\forall \omega_{\alpha\beta}\]
+	usando che $ v^{'}_\tau = \dfrac{\partial x^\nu}{\partial x^{'\tau}} v_\nu $ e che moltiplicandolo per $\eta^{\mu\tau}$ si ha
+	\[ v^{'\mu} = \eta^{\mu\tau} v^{'}_\tau = \dfrac{\partial x^{'\mu}}{\partial x^{\tau}} \eta^{\tau\nu} v_\nu = \eta^{\mu\tau} \dfrac{\partial x^\nu}{\partial x^{'\tau}} v_\nu \]
+	da cui
+	\[ \dfrac{\partial x^{'\mu}}{\partial x^{\tau}} \eta^{\tau\nu} = \eta^{\mu\tau} \dfrac{\partial x^\nu}{\partial x^{'\tau}}\rightarrow
+	\dfrac{\partial x^{'\alpha}}{\partial x^{\mu}} = \eta_{\mu\sigma} \dfrac{\partial x^{\sigma}}{\partial x^{'\tau}} \eta^{\tau\alpha} \]
+	
+	\subsection{Algebra e esponenziale}
+	Metrica: (+, -, -, -). Boost infinitesimo $\Lambda\indices{^\mu_\nu} = (exp(i\theta_{\alpha\beta} V^{\alpha\beta}))\indices{^\mu_\nu} \simeq \delta^\mu_\nu + i\theta_{\alpha\beta} (V^{\alpha\beta})\indices{^\mu_\nu}$.
+	
+	La convenzione per ora sarà che all'esponente va sempre la $i$, poi la toglieremo dai boost.
+	
+	\[ V^{\alpha\beta} = \begin{pmatrix}
+	0 & K_1 & K_2 & K_3 \\
+	-K_1 & 0 & J_3 & -J_2 \\
+	-K_2 & -J_3 & 0 & J_1 \\
+	-K_3 & J_2 & -J_1 & 0 
+	\end{pmatrix} \]
+	\[ J_3 = i\begin{pmatrix}
+	0 & 0 & 0 & 0 \\
+	0 & 0 & 1 & 0 \\
+	0 & -1 & 0 & 0 \\
+	0 & 0 & 0 & 0 
+	\end{pmatrix}
+	\quad
+	K_1 = -i\begin{pmatrix}
+	0 & 1 & 0 & 0 \\
+	1 & 0 & 0 & 0 \\
+	0 & 0 & 0 & 0 \\
+	0 & 0 & 0 & 0 
+	\end{pmatrix}
+	\]
+	
+	\[ K_i = V^{0i},\qquad J_i = \dfrac{1}{2} \epsilon_{ijk} V^{jk} \]
+	\[ \beta_i = \theta_{oi},\qquad \theta_i = \dfrac{1}{2} \epsilon_{ijk} \theta_{jk} \]
+	
+	Boost infinitesimo anche $\Lambda\indices{^\mu_\nu} = exp(i \theta_i J_i + i\beta_i K_i)\indices{^\mu_\nu}$.
+	
+	Il commutatore fra le $V$ è (ricordarsi primo-quarto, secondo-terzo)
+	\[ [V^{\mu\nu}, V^{\rho\sigma}] = i [(\eta^{\mu\sigma} M^{\nu\rho} - \mu\leftrightarrow\nu) - \rho\leftrightarrow\sigma ] \]
+	
+	\[ [J_i, J_j] = i \epsilon_{ijk} J_k,\quad [J_i, K_j] = i \epsilon_{ijk} K_k,\quad [K_i, K_j] = -i\epsilon_{ijk} J_k \]
+	
+	\section{Spinori}
+	\subsection{Rappresentazioni}
+	NB: Ho il terrore che Guadagnini scambi i nomi spinore destro e sinistro per le due rappresentazioni, rispetto a come sto facendo qui. La matematica però è giusta.
+	\[ J_\pm = \dfrac{1}{2} (J\pm i K) \]
+	Chiamo $\left(0, \dfrac{1}{2}\right)$ spinori destri $\psi_R$, che hanno solo $J_+$. $J=\dfrac{\sigma}{2}$, $K = -i\dfrac{\sigma}{2}$\\
+	Chiamo $\left(\dfrac{1}{2}, 0\right)$ spinori sinistri $\psi_L$, che hanno solo $J_-$. $J=\dfrac{\sigma}{2}$, $K = i\dfrac{\sigma}{2}$
+	
+	Noto ciò è immediato che
+	\[ \Psi_R \rightarrow exp\left(i \dfrac{\theta\cdot\sigma}{2} + \dfrac{\beta\cdot\sigma}{2}\right) \]
+	\[ \Psi_L \rightarrow exp\left(i \dfrac{\theta\cdot\sigma}{2} - \dfrac{\beta\cdot\sigma}{2}\right) \]
+	
+	\subsection{Lagrangiana di Dirac senza fotoni}
+	\[ \Psi = \begin{pmatrix}
+	\phi \\ \chi
+	\end{pmatrix}, \qquad \bar{\Psi} = \Psi^\dagger\gamma^0 = (\phi^\dagger\, -\chi^\dagger) \]
+	\[ \gamma^0 = \begin{pmatrix}
+	1& \\ & -1
+	\end{pmatrix},\qquad \gamma^j = \begin{pmatrix}
+	& \sigma^j \\ -\sigma^j&
+	\end{pmatrix} \]
+	
+	\[ \mathcal{L}= \bar{\psi} (i \gamma^\mu \partial_\mu - m) \psi, \qquad (i\gamma^\mu \partial_\mu - m) \psi = 0 \]
+	
+	\subsection{Matrici gamma}
+	\[ \{ \gamma^\mu, \gamma^\nu \} = 2\eta^{\mu\nu} 1_{4\times4}\qquad S^{\mu\nu} = \dfrac{i}{2} [\gamma^\mu, \gamma^\nu] \]
+	
+	Le matrici $S$ soddisfano l'algebra di Lorentz.
+	\[ [S^{\mu\nu}, S^{\rho\sigma}] = 4i [(\eta^{\mu\sigma} S^{\nu\rho} - \mu\leftrightarrow\nu) - \rho\leftrightarrow\sigma ] \]
+	\[ S^{ij} = \epsilon_{ijk} \begin{pmatrix}
+	\sigma_k& \\ & \sigma_k
+	\end{pmatrix}
+	\quad
+	S^{0i} = i
+	\begin{pmatrix}
+	&\sigma_i \\ \sigma_i&
+	\end{pmatrix} \]
+	
+	\[ \gamma^0 \gamma^\mu \gamma^0 = (\gamma^\mu )^\dagger, \qquad (\gamma^j)^\dagger = -\gamma^j \]
+	\subsubsection*{$\gamma^5$}
+	\[ \gamma^5 = i\gamma^0\gamma^1\gamma^2\gamma^3 = \begin{pmatrix}
+	&1 \\ 1&
+	\end{pmatrix},\quad (\gamma^5)^\dagger = \gamma^5 \]
+	\[ \{\gamma^5,\gamma^\mu\} = 0,\qquad [\gamma^5,S^{\mu\nu}]=0 \]
+	
+	\subsection{Proprietà di trasformazione}
+	\begin{tabular}{|c|c|}
+		$\bar{\psi}\psi$&scalare  \\ 
+		$\bar{\psi}\gamma^\mu\psi$&vettore  \\ 
+		$\bar{\psi}\gamma^5\psi$&pseudo-scalare  \\  
+		$\bar{\psi}\gamma^5\gamma^\mu\psi$&pseudo-vettore  \\  
+	\end{tabular} 
+	
+	\subsection{Parità}
+	TODO!
+	
+	\subsection{Fare i conti}
+	\subsection{Campo scalare e vettoriale}
+	Il campo scalare reale è
+	\[ \phi(x) = \int \dfrac{\d^3 p}{(2\pi)^3\sqrt{2\omega_p}} (a_p^s e^{-ipx} + a_p^\dagger e^{ipx}) \]
+	Quello complesso è
+	\[ \Phi(x) = \int \dfrac{\d^3 p}{(2\pi)^3\sqrt{2\omega_p}} (a_p^s e^{-ipx} + b_p^\dagger e^{ipx}) \]
+	e ha come corrente conservata
+	\[ J^\mu = -i(\phi\partial^\mu \phi^* - \phi^*\partial^\mu \phi) -2eA^\mu \phi^*\phi \]
+	\subsection{Campo spinoriale}
+	$u^s(p)$ sono i due spinori per l'elettrone ($s$ è la polarizzazione), $v^s(p)$ è analogo per positrone. $b$ annichilano elettroni, $d$ annichilano positroni.
+	
+	\[ \psi(x) = \sum_s \int \dfrac{\d^3 p}{(2\pi)^3\sqrt{2\omega_p}} (b_p^s u_p^s e^{-ipx} + d_p^{s\dagger} v_p^s e^{ipx}) \]
+	\[ \bar{\psi}(x) = \sum_s \int \dfrac{\d^3 p}{(2\pi)^3\sqrt{2\omega_p}} (b_p^{s\dagger} \bar{u}_p^s e^{ipx} + d_p^s \bar{v}_p^s e^{-ipx}) \]
+	$\psi$ quindi annichila un $e^{-}$ e crea un $e^{+}$, $\bar{\psi}$ annichila un $e^{+}$ e crea un $e^{-}$.
+	
+	\paragraph{Corrente conservata} $J^\mu = \bar{\psi} \gamma^\mu \psi$ è conservata (anche nel caso di interazione elettromagnetica). Mediante le relazioni di ortogonalità si dimostra che $Q$ è la differenza fra numero di elettroni e di positroni.
+	
+	\paragraph{Base chirale}
+	
+	$\gamma^0 = \begin{pmatrix}
+	0&1\\1&0
+	\end{pmatrix}$, $\gamma^j = \begin{pmatrix}
+	&-\sigma^j\\\sigma^j&
+	\end{pmatrix}$, $\gamma^5 = \begin{pmatrix}
+	1&0\\0&-1
+	\end{pmatrix}$
+	
+	\[ \sigma^\mu = (1, \sigma^j),\qquad \bar{\sigma}^\mu = (1,-\sigma^j) \]
+	
+	Dall'equazione di Dirac si ha nella base chirale
+	\[ u_s(p) = \begin{pmatrix}
+	\sqrt{p\cdot \sigma}\xi_s\\ \sqrt{p\cdot \bar{\sigma}} \xi_s
+	\end{pmatrix}
+	\qquad
+	v_s(p) = \begin{pmatrix}
+	\sqrt{p\cdot \sigma}\eta_s\\ -\sqrt{p\cdot \bar{\sigma}} \eta_s
+	\end{pmatrix} \]
+	$\xi_s,\,\eta_s$ sono vettori a due componenti, ad esempio $\xi_1 = \left( ^{1}_{0} \right)$, $\xi_2 = \left( ^{0}_{1} \right)$.
+	
+	Nella base standard di Guadagnini ($\gamma^0 = \begin{pmatrix}
+	1&0\\0&-1
+	\end{pmatrix}$) invece si ha
+	\[ u_r(p) = \begin{pmatrix}
+	\sqrt{E+m}\phi_r\\ \dfrac{\vec{p}\cdot\vec{\sigma}}{\sqrt{E+m}} \phi_r
+	\end{pmatrix}
+	\qquad
+	v_r(p) = \begin{pmatrix}
+	\dfrac{\vec{p}\cdot\vec{\sigma}}{\sqrt{E+m}} \xi_r \\ \sqrt{E+m} \xi_r
+	\end{pmatrix} \]
+	
+	Per impulsi non nulli è definita l'elicità. Nella base chirale lo spinore di Dirac è decomposto in due parti con elicità definita (le convenzioni sui nomi mi sembrano anarchia pura), nella base standard invece basta scegliere $\Phi$ e $\xi$ che soddisfino alle seguenti equazioni:
+	\[ \dfrac{\vec{p}\cdot\sigma}{p} \Phi^1 = \Phi^1,\qquad \dfrac{\vec{p}\cdot\sigma}{p} \Phi^2 = -\Phi^2 \]
+	\[ \dfrac{\vec{p}\cdot\sigma}{p} \xi^1 = \xi^1,\qquad \dfrac{\vec{p}\cdot\sigma}{p} \xi^2 = -\xi^2 \]
+	allora gli spinori $u^1$, $u^2$ sono particelle di elicità $+1/2$, $-1/2$; $\bar{v}^1$, $\bar{v}^2$ sono antiparticelle di elicità $-1/2$, $+1/2$.
+	
+	\subsection{Limite nonrelativistico}
+	Nel limite nonrelativistico in $u,v$ domina la massa $m$ su $p$ e $E\simeq m$. Consideriamo solo gli elettroni (solo $u$). Separiamo $\psi$ (base standard!) in $\psi = \begin{pmatrix}	\phi\\ \chi \end{pmatrix}$. Per ispezione da $u$ oppure con l'equazione di Dirac in trasformata si ricava che 
+	\[ \chi = \dfrac{\sigma\cdot \pi}{2m} \phi,\qquad \pi = p-eA \]
+	Dalle prime due delle quattro equazioni di Dirac si ricava
+	\[ i\partial_t \phi = m\phi + \pi_j \sigma^j \chi  \]
+	da cui sostituendo e trascurando $m$ si ricava l'hamiltoniana di Pauli
+	\[ H = \dfrac{1}{2m} \pi_i\pi_j \sigma^i\sigma^j \]
+	che si scrive anche come
+	\[ \dfrac{\pi^2}{2m} +(e V) - \vec{\mu}\cdot \vec{B} \]
+	con $\vec{\mu} = 2 \mu_B \vec{s}$.
+	
+	\paragraph{Relazioni di ortogonalità e completezza}
+	\[ \bar{u}_p^r u_p^s = 2m \delta_{rs} = - \bar{v}_p^r v_p^s \]
+	\[ u_p^{\dagger r} u_p^s = 2E_p \delta_{rs} = v_p^{\dagger r} v_p^s \]
+	\[ \bar{v}_p^r u_p^s = \bar{u}_p^r v_p^s = 0 \]
+	\[ v_p^{\dagger r} u_{-p}^s = u_p^{\dagger s} v_{-p}^r = 0 \]
+	
+	\paragraph{Propagatore scalare} $\dfrac{i}{p^2-m^2+i\epsilon}$.
+	\paragraph{Propagatore dei fotoni} $\dfrac{-i\eta_{\mu\nu}}{p^2+i\epsilon}$.
+	\paragraph{Propagatore dei fermioni} $\dfrac{i(\slashed{p} + m)}{p^2-m^2 + i\epsilon}$. L'impulso per linee interne è diretto come il fermione (gli elettroni vanno nel futuro).
+	
+	Le linne esterne fermioniche vogliono un fattore $u$ o $\bar{v}$ se sono pozzi (di elettroni o positroni risp.), $\bar{u}$ o $v$ per le sorgenti. Per spinori esterni valgono le equazioni del moto secondo cui
+	\[ (\slashed{p} - m)u_s(p) = \bar{u}_s(p) (\slashed{p} - m) = 0 \]
+	\[ (\slashed{p} + m)v_s(p) = \bar{v}_s(p) (\slashed{p} + m) = 0 \]
+	
+	\subsection{Relazioni algebriche fra le matrici gamma}
+	\paragraph{Introduzione}
+	\[ (\bar{v}^s_p \Gamma u^r_k)^* = \bar{u}^r_k \bar{\Gamma} v^s_p \]
+	\[ \slashed{p}\slashed{q} = p\cdot q - i S^{\mu\nu} p_\mu q_\nu \]
+	\[ gamma_\mu \gamma^\mu = 4 \]
+	\[ \gamma_\mu \slashed{p}\gamma^\mu = -2 \slashed{p} \]
+	\[ \gamma_\mu\slashed{p}\slashed{q}\slashed{k}\gamma^\mu = -2 \slashed{k}\slashed{q}\slashed{p} \]
+	\[ \gamma_\mu \slashed{p}\slashed{q}\gamma^\mu = 4 p\cdot q \]
+	
+	\paragraph{Tracciologia}
+	La traccia di un numero dispari di matrici gamma (esclusa $\gamma^5$ che conta come 4 matrici gamma) è zero (ciclicità della traccia).
+	\[ Tr[\gamma^\mu\gamma^\nu] = 4\eta^{\mu\nu} \]
+	\[ Tr[\gamma^\mu\gamma^\nu\gamma^\rho\gamma^\sigma] = 4\eta^{\mu\nu}\eta^{\rho\sigma} -4\eta^{\mu\rho}\eta^{\nu\sigma} + 4\eta^{\mu\sigma}\eta^{\nu\rho} \]
+	\[ Tr[\gamma^5\gamma^\mu\gamma^\nu] = 0 \]
+	\[ Tr[\gamma^5\gamma^\mu\gamma^\nu\gamma^\rho\gamma^\sigma] = 4i\epsilon^{\mu\nu\rho\sigma} \]
+	attenzione: $\epsilon^{0123} = -\epsilon_{0123} = -1$.
+	
+	\paragraph{Medie}
+	\[ \bar{\Gamma} := \gamma^0 \Gamma^\dagger \gamma^0 \]
+	\[ \sum_s (u^s_p)_\alpha (\bar{u}^s_p)_\beta = (\slashed{p}+m)_{\alpha\beta} \]
+	\[ \sum_s (v^s_p)_\alpha (\bar{v}^s_p)_\beta = (\slashed{p}-m)_{\alpha\beta} \]
+	
+	usando queste 3 si ricavano queste:
+	\[ \sum_{r,s}|\bar{u}^s_p \Gamma u^r_k|^2 = Tr[(\slashed{p}+m) \Gamma (\slashed{k}+m) \bar{\Gamma}] \]
+	\[ \sum_{r,s}|\bar{v}^s_p \Gamma v^r_k|^2 = Tr[(\slashed{p}-m) \Gamma (\slashed{k}-m) \bar{\Gamma}] \]
+	\[ \sum_{r,s}|\bar{v}^s_p \Gamma u^r_k|^2 = Tr[(\slashed{p}-m) \Gamma (\slashed{k}+m) \bar{\Gamma}] \]
+	\[ \sum_{r,s}|\bar{u}^s_p \Gamma v^r_k|^2 = Tr[(\slashed{p}+m) \Gamma (\slashed{k}-m) \bar{\Gamma}] \]
+	Inoltre valgono regole analoghe se invece di una matrice $\Gamma$ abbiamo $\gamma^\mu$:
+	\[ "\sum_{r,s}|\bar{v}^s_p \gamma^\mu u^r_k|^2" = \sum_{r,s}(\bar{v}^s_p \gamma^\mu u^r_k)(\bar{u}^r_k \gamma^\nu v^s_p) = Tr[(\slashed{p}-m) \gamma^\mu (\slashed{k}+m) \gamma^\nu] \]
+	
+	
+	\section{Cose in più}
+	Abbiamo detto che $(\slashed{p} -m)u=0$ è l'equazione del moto (per $v$ si ha $(\slashed{p}+m)v=0$). Dobbiamo trovare il kernel di $(\slashed{p}\pm m)$. Facendo agire tali operatori su $\begin{pmatrix}	\phi\\\psi	\end{pmatrix}$ si osserva che fissato $\psi$ esiste $\phi$ e viceversa in modo che operando venga 0. Viceversa se fisso $\psi=0$ ho che operando viene 0 sse $\phi=0$. Notiamo inoltre che $(\slashed{p}+m)(\slashed{p}-m) = 0$. Dunque scrivendo $u_s(p) = \dfrac{\slashed{p}+m}{\sqrt{E+m}} \begin{pmatrix}	\phi_s\\0	\end{pmatrix} $ stiamo generando due vettori indipendenti annichilati da $(\slashed{p}-m)$, cioè tutte e sole le soluzioni.
+	
+	\section{Mondo reale}
+	Per Guadagnini
+	\[ S = 1 + (2\pi)^4 \delta^4(\cdot) \mathcal{M} \]
+	si ha che per decadimenti
+	\[ \d R = \dfrac{1}{2E_i} |\mathcal{M}|^2 \d \Pi_{LIPS} \]
+	mentre per scattering a due corpi
+	\[ \d \sigma = \dfrac{1}{2 E_{1i} 2 E_{i2} |v_1 - v_2| } |\mathcal{M}|^2 \d \Pi_{LIPS} \]
+	con
+	\[ \d \Pi_{LIPS} = (2\pi)^4 \delta^4(\cdot) \prod_{j\in \{ final\,states \}} \dfrac{\d^3 p_j}{(2\pi)^3 2\omega_j} \]
+	
+	\subsection{Caveat}
+	\paragraph{Operatori uguali in $\mathcal{L}_I$} Se in $\mathcal{L}_I$ il campo $\phi$ (qualunque) compare $n$ volte (es: $\phi^n$, $\phi^{n-1} \partial_\mu \phi \partial_\nu \phi)$, ..) serve un fattore $n!$ nell'ampiezza (in un vertice, quale degli $n$ $\phi$ crea/distrugge la particella di un certo impulso fissato? $n!$ possibilità equivalenti).
+	
+	\paragraph{Particelle uguali nello stato finale} Se nello stato finale compaiono $m$ particelle identiche, quando si tratta di integrare nello spazio delle fasi serve un fattore $\dfrac{1}{m!}$.
+	
+	\subsection{Dimostrazione}
+	\[ [a_p,a_q^\dagger] = (2\pi)^3 \delta^3(\vec{p}-\vec{q}) \]
+	dunque, ricordando che $(2\pi)^3 \delta^3(0) = V$, si ha $\braket{p}{p} = V$. Inoltre questa normalizzazione non è relativisticamente invariante, dunque quando si va a calcolare
+	\[ \mathcal{A} = \bra{f}S\ket{i} = \bra{f}e^{i\int \mathcal{L}_I \d^4 x} \ket{i} = \bra{0}aSa^\dagger\ket{0} \]
+	questa non è l'ampiezza invariante relativistica. Poichè $[\alpha_p,\alpha_q^\dagger] = (2\pi)^3 \delta^3(\vec{p}-\vec{q}) 2\omega_p$, $\alpha = a \sqrt{2\omega}$. Infine quindi
+	\[ \mathcal{A} = \dfrac{(2\pi)^4 \delta^4(\cdot)}{\sqrt{2\omega_i}} \mathcal{M} \]
+	dove $\mathcal{M}$ è l'ampiezza relativistica e a denominatore va il prodotto delle energie di tutte le particelle. A questo punto
+	\[ \d P = \dfrac{|\bra{f}S\ket{i}|^2}{\braket{f}{f} \braket{i}{i} } \dfrac{\d^3 p_i(V)}{(2\pi)^3} \]
+	\[ \d \Gamma = \dfrac{\d P}{T} = \dfrac{(2\pi)^4 \delta^4(\cdot) VT |\mathcal{M}|^2 }{2\omega_i T} \dfrac{1}{V^{N+1}} \dfrac{\d^3 p_i V}{(2\pi)^3} \]
+	\[ \d\sigma = \dfrac{1}{j} \dfrac{\d P}{T} = \dfrac{1}{\dfrac{|v_1-v_2|}{V}} \dfrac{(2\pi)^4 \delta^4(\cdot) VT |\mathcal{M}|^2 }{2\omega_i T} \dfrac{1}{V^{N+2}} \dfrac{\d^3 p_i V}{(2\pi)^3} \]
+	
+	\subsection{Estensione a potenziali esterni classici}
+	Il punto di riferimento è "Scattering di elettroni in potenziale coulombiano" a pag.41 di Guadagnini, in cui l'interazione è $-e\bar{\psi}\gamma^0\psi A_0(\vec{x})$. Il nostro bellissimo e super-oliato macchinario dei diagrammi di Feynman che ci fa scrivere a colpo $\mathcal{M}$ e l'espressione per $\d \sigma$ va aggiustato così:
+	
+	Quando si scrive $\mathcal{A}$ la delta di conservazione dell'impulso viene dall'integrale degli esponenziali $e^{i\vec{p}\cdot\vec{x}}$. Ora abbiamo anche $A_0(\vec{x})$, quindi la $\mathcal{M}$ (che ora non è più invariante relativistica) si scrive con le solite regole di Feynman eccetto che per quel vertice classico (che supponiamo sia unico). Lì il termine classico nella lagrangiana si manifesta nel vertice come
+	\[ \int \d^3\vec{x} e^{-i(\vec{\Delta}\cdot\vec{x})} A_0(\vec{x}) \]
+	dove $\vec{\Delta}$ sono gli altri impulsi (finali meno iniziali) nel vertice. Lo si vede pensando ai conti che si farebbero per scrivere $\mathcal{A}$. A questo punto $\mathcal{A}$ perde il $(2\pi)^3 \delta^3(P_f-P_i)$ e lo stesso $\d \sigma$.
+	
+\end{document}
